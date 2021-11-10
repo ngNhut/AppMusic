@@ -101,7 +101,7 @@ const app = {
                 cd.style.width = newCdWidth + 'px'
             }
 
-            if(scrollTop == 0) {
+            if(scrollTop == 0 || window.onload) {
                 dashboard.classList.add('active')
                 $('.cd').style.width = 300 + 'px'
             } else {
@@ -137,6 +137,7 @@ const app = {
         const next = $('.btn-next')
         const back = $('.btn-prev')
         next.onclick = function() {
+            $('.cd').classList.remove('active')
                 app.isPlaying = true
                 if(app.currentIndex<app.songs.length-1) {
                     app.currentIndex+=1
@@ -145,11 +146,13 @@ const app = {
                 }
                 app.loadCurrentSong()
                 setTimeout(function() {
+                    $('.cd').classList.add('active')
                     $('audio').play()
                     $('.btn-toggle-play').classList.remove('playing')
                 },750)
         }
         back.onclick = function() {
+            $('.cd').classList.remove('active')
             $('.btn-toggle-play').classList.remove('playing')
             app.isPlaying = true
             if(app.currentIndex>0) {
@@ -159,6 +162,7 @@ const app = {
             }
         app.loadCurrentSong()
         setTimeout(function() {
+            $('.cd').classList.add('active')
             $('audio').play()
             $('.btn-toggle-play').classList.remove('playing')
         },750)
@@ -166,10 +170,13 @@ const app = {
         // XỬ LÝ CLICK DANH BÀI HÁT
         $$('.song').forEach(function (item, index) {
             item.onclick = function () {
-                $('.btn-toggle-play').classList.remove('playing')
                 app.isPlaying = true
                 app.currentIndex = index
                 app.loadCurrentSong()
+                setTimeout(function() {
+                    $('.btn-toggle-play').classList.remove('playing')
+                $('audio').play()
+                },750)
             }
         })
         //XỬ LÝ TUA NHẠC
@@ -179,9 +186,16 @@ const app = {
                 isBolean = false
         }
         $('#audio').ontimeupdate = function() {
+            rate = $('#audio').currentTime/ $('#audio').duration
+            console.log(rate*100)
             if(isBolean) {
-                if($('#audio').currentTime/ $('#audio').duration) {
-                    $('input').value = ($('#audio').currentTime/ $('#audio').duration)*100 
+                if(rate) {
+                    $('input').value = rate*100 
+                    $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) ${Math.ceil(rate*100)}%, #ccc 0)`
+                    $('.dashboard').style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg, #ffec71, #ff19cd24,#ff646469)`
+                    $$('.song').forEach(item => {
+                        item.style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg, #ffec71, #ff19cd24,#ff646469)`
+                    })
                 } else {
                     $('input').value= 0
                 }
@@ -190,6 +204,10 @@ const app = {
         $('#audio').onseeked = function() {
            isBolean = true
         }
+
+        //Xử lí thanh input nhạc 
+        progess = $('.progess')
+
         // XỬ LÍ VÒNG LẶP
         $('.btn-repeat').onclick = function() {
             $('.btn-repeat').classList.toggle('active')

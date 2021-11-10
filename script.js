@@ -23,7 +23,7 @@ const app = {
         {
             id:2,
             name: 'Always with me',
-            singer: 'Ghbili',
+            singer: 'Ghibli',
             path: './asset/mp3/song3.mp3',
             image: './asset/img/song3.jpg'
         },
@@ -58,10 +58,94 @@ const app = {
         {
             id:7,
             name: 'Phi Điểu Và Ve Sầu',
-            singer: 'Nhậm Nhiêni',
+            singer: 'Nhậm Nhiên',
             path: './asset/mp3/song8.mp3',
             image: './asset/img/song8.jpg'
         },
+        {
+            id:7,
+            name: '3 gatsu 9 ka',
+            singer: 'Konamilk',
+            path: './asset/mp3/song9.mp3',
+            image: './asset/img/song9.jpg'
+        },
+        {
+            id:7,
+            name: 'Chiisana koi uta',
+            singer: 'Konamilk',
+            path: './asset/mp3/song10.WEBM',
+            image: './asset/img/song10.jpg'
+        },
+        {
+            id:7,
+            name: 'Gửi đến tôi của 10 năm sau',
+            singer: 'Hồ Ly Rùa',
+            path: './asset/mp3/song11.mp3',
+            image: './asset/img/song11.jpg'
+        },
+        {
+            id:7,
+            name: 'Thiếu niên',
+            singer: 'Mộng Nhiên',
+            path: './asset/mp3/song12.mp3',
+            image: './asset/img/song12.jpg'
+        },
+        {
+            id:7,
+            name: 'Ngôi sao sáng nhất bầu trời đêm',
+            singer: 'Escape Plan',
+            path: './asset/mp3/song13.mp3',
+            image: './asset/img/song13.jpg'
+        },
+        {
+            id:7,
+            name: 'Con đường bình phàm',
+            singer: 'Phác Thụ',
+            path: './asset/mp3/song14.mp3',
+            image: './asset/img/song14.jpg'
+        },
+        {
+            id:7,
+            name: 'Sau này không gặp lại',
+            singer: 'Đặng Kỳ Tử',
+            path: './asset/mp3/song15.mp3',
+            image: './asset/img/song15.jpg'
+        },
+        {
+            id:7,
+            name: 'Sau này',
+            singer: 'Lưu Nhược Anh',
+            path: './asset/mp3/song16.mp3',
+            image: './asset/img/song16.jpg'
+        },
+        {
+            id:7,
+            name: 'Cá lớn',
+            singer: 'Châu Thâm',
+            path: './asset/mp3/song17.mp3',
+            image: './asset/img/song17.jpg'
+        },
+        {
+            id:7,
+            name: 'Tay trái chỉ trăng',
+            singer: 'Tát Đỉnh Đỉnh',
+            path: './asset/mp3/song18.mp3',
+            image: './asset/img/song18.jpg'
+        },
+        {
+            id:7,
+            name: 'Chúng ta của hiện tại',
+            singer: 'Sơn Tùng',
+            path: './asset/mp3/song19.mp3',
+            image: './asset/img/song19.jpg'
+        },
+        {
+            id:7,
+            name: 'Âm thầm bên em',
+            singer: 'Sơn Tùng',
+            path: './asset/mp3/song20.mp3',
+            image: './asset/img/song20.png'
+        }
     ],
     defineProperties() {
         Object.defineProperty(this,'currentSong',{
@@ -103,7 +187,7 @@ const app = {
 
             if(scrollTop == 0 || window.onload) {
                 dashboard.classList.add('active')
-                $('.cd').style.width = 300 + 'px'
+                $('.cd').style.width =150+ 'px'
             } else {
                 dashboard.classList.remove('active')
             }
@@ -193,9 +277,9 @@ const app = {
                 if(rate) {
                     $('input').value = rate*100 
                     $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) ${Math.ceil(rate*100)}%, #ccc 0)`
-                    $('.dashboard').style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg, #ffec71, #ff19cd24,#ff646469)`
+                    $('.dashboard').style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg,  rgb(230 255 25 / 16%), rgb(255 116 116 / 43%))`
                     $$('.song').forEach(item => {
-                        item.style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg, #ffec71, #ff19cd24,#ff646469)`
+                        item.style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg,  rgb(230 255 25 / 16%), rgb(255 116 116 / 43%))`
                     })
                 } else {
                     $('input').value= 0

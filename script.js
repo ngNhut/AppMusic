@@ -187,7 +187,6 @@ const app = {
 
             if(scrollTop == 0 || window.onload) {
                 dashboard.classList.add('active')
-                $('.cd').style.width =150+ 'px'
             } else {
                 dashboard.classList.remove('active')
             }

@@ -220,6 +220,7 @@ const app = {
         const next = $('.btn-next')
         const back = $('.btn-prev')
         next.onclick = function() {
+            $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) 0%, #ccc 0)`
             $('.cd').classList.remove('active')
             $('.btn-toggle-play').classList.remove('playing')
                 app.isPlaying = true
@@ -236,6 +237,7 @@ const app = {
                 },750)
         }
         back.onclick = function() {
+            $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) 0%, #ccc 0)`
             $('.cd').classList.remove('active')
             $('.btn-toggle-play').classList.remove('playing')
             app.isPlaying = true
@@ -254,6 +256,7 @@ const app = {
         // XỬ LÝ CLICK DANH BÀI HÁT
         $$('.song').forEach(function (item, index) {
             item.onclick = function () {
+                $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) 0%, #ccc 0)`
                 app.isPlaying = true
                 app.currentIndex = index
                 app.loadCurrentSong()
@@ -266,16 +269,17 @@ const app = {
         //XỬ LÝ TUA NHẠC
         isBolean = true;
         $('input').oninput = function(e) {
-                $('#audio').currentTime = (e.target.value/100)*$('#audio').duration
-                isBolean = false
+            isBolean = false
+            rate = (e.target.value/100)*$('#audio').duration
+                $('#audio').currentTime = rate
+                $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) ${e.target.value}%, #ccc 0)`
         }
         $('#audio').ontimeupdate = function() {
             rate = $('#audio').currentTime/ $('#audio').duration
-            console.log(rate*100)
             if(isBolean) {
                 if(rate) {
-                    $('input').value = rate*100 
-                    $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) ${Math.ceil(rate*100)}%, #ccc 0)`
+                    $('input').value = Math.ceil(rate*100)
+                    $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) ${ Math.ceil(rate*100)}%, #ccc 0)`
                     $('.dashboard').style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg,  rgb(230 255 25 / 16%), rgb(255 116 116 / 43%))`
                     $$('.song').forEach(item => {
                         item.style.backgroundImage = `linear-gradient(${Math.ceil(rate*100)*8}deg,  rgb(230 255 25 / 16%), rgb(255 116 116 / 43%))`
@@ -302,12 +306,17 @@ const app = {
             }
         }
         //Xử lí random và tự chuyển bài
+        $('.btn-random').onclick = function() {
+            $('.btn-random').classList.toggle('active')
+        }
+
         $('#audio').onended =function() {
-            random = Math.random()
+            $('.progress').style.backgroundImage = `linear-gradient(to right, var(--primary-color) 0%, #ccc 0)`
+            random = Math.floor(Math.random()*20)
             if( $('.btn-random').classList.contains('active')) {
                 app.isPlaying = true
-                if(Math.abs(5-Math.floor(random*10)) != app.currentIndex && Math.abs(5-Math.floor(random*10)) != app.currentIndex -1) {
-                    app.currentIndex = Math.abs(5-Math.floor(random*10))
+                if(random != app.currentIndex && random != app.currentIndex -1) {
+                    app.currentIndex = random
                 } else {
                     app.currentIndex+=1
                 }
@@ -331,9 +340,9 @@ const app = {
             },750)
             }
         }
-        $('.btn-random').onclick = function() {
-            $('.btn-random').classList.toggle('active')
-        }
+
+        // Tự play khi load 
+        
     },
     loadCurrentSong() {
         $('#audio').src = this.currentSong.path

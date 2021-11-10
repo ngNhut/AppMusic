@@ -68,6 +68,21 @@
     margin: auto;
     width: 200px;
   }
+
+  .cd.active {
+    animation: rotate 5s linear infinite;
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .cd.active.pause {
+    animation-play-state: paused;
+  }
   
   .cd-thumb {
     width: 100%;
@@ -132,10 +147,14 @@
   
   /* PLAYLIST */
   .playlist {
-    margin-top: 408px;
+    margin-top: 500px;
     padding: 12px;
-    height: 300px;
-    overflow-y: scroll;
+  }
+
+  .dashboard.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
   .song {

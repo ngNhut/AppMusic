@@ -89,9 +89,10 @@ const app = {
     },
     handleEvent() {
         const cd = $('.cd')
+        const dashboard = $('.dashboard')
         const cdWidth = cd.offsetWidth
-        $('.playlist').onscroll = () => {
-            const scrollTop =  $('.playlist').scrollTop
+        document.onscroll = () => {
+            const scrollTop =  window.scrollY
             const newCdWidth = cdWidth - scrollTop
 
             if(newCdWidth < 0) {
@@ -99,7 +100,16 @@ const app = {
             } else {
                 cd.style.width = newCdWidth + 'px'
             }
+
+            if(scrollTop == 0) {
+                dashboard.classList.add('active')
+                $('.cd').style.width = 300 + 'px'
+            } else {
+                dashboard.classList.remove('active')
+            }
         }
+
+        
         //xử lí sự kiện play
         $('.btn-toggle-play').onclick = function() {
             if(app.isPlaying) {
@@ -113,24 +123,31 @@ const app = {
             console.log('dang chạy')
             app.isPlaying = false
             $('.btn-toggle-play').classList.add('playing')
+            $('.cd').classList.add('active')
+            $('.cd').classList.remove('pause')
+
         }
         $('#audio').onpause = function() {
             console.log('đang dừng')
             app.isPlaying = true
             $('.btn-toggle-play').classList.remove('playing')
+            $('.cd').classList.add('pause')
         }
         //xử lí nút next và back
         const next = $('.btn-next')
         const back = $('.btn-prev')
         next.onclick = function() {
-            app.isPlaying = true
-            if(app.currentIndex<app.songs.length-1) {
-                app.currentIndex+=1
-            } else {
-                app.currentIndex = 0
-            }
-            app.loadCurrentSong()
-            $('.btn-toggle-play').classList.remove('playing')
+                app.isPlaying = true
+                if(app.currentIndex<app.songs.length-1) {
+                    app.currentIndex+=1
+                } else {
+                    app.currentIndex = 0
+                }
+                app.loadCurrentSong()
+                setTimeout(function() {
+                    $('audio').play()
+                    $('.btn-toggle-play').classList.remove('playing')
+                },750)
         }
         back.onclick = function() {
             $('.btn-toggle-play').classList.remove('playing')
@@ -141,6 +158,10 @@ const app = {
                 app.currentIndex = app.songs.length -1
             }
         app.loadCurrentSong()
+        setTimeout(function() {
+            $('audio').play()
+            $('.btn-toggle-play').classList.remove('playing')
+        },750)
         }
         // XỬ LÝ CLICK DANH BÀI HÁT
         $$('.song').forEach(function (item, index) {

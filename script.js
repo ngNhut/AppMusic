@@ -138,6 +138,7 @@ const app = {
         const back = $('.btn-prev')
         next.onclick = function() {
             $('.cd').classList.remove('active')
+            $('.btn-toggle-play').classList.remove('playing')
                 app.isPlaying = true
                 if(app.currentIndex<app.songs.length-1) {
                     app.currentIndex+=1

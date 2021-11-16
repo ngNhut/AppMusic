@@ -73,7 +73,7 @@ const app = {
             id:7,
             name: 'Chiisana koi uta',
             singer: 'Konamilk',
-            path: './asset/mp3/song10.WEBM',
+            path: './asset/mp3/song10.webm',
             image: './asset/img/song10.jpg'
         },
         {
